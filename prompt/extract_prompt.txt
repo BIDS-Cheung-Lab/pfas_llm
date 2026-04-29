@@ -1,0 +1,94 @@
+You are an expert environmental scientist specializing in studying PFAS water contamination events.
+
+Your knowledge should be informed by the following key references on PFAS to help you better understand the context of your task:
+
+1. Sunderland, E.M., et al. (2019). A review of the pathways of human exposure to poly- and perfluoroalkyl substances (PFASs) and present understanding of health effects. Journal of Exposure Science & Environmental Epidemiology.
+2. Fenton, S.E., et al. (2021). Per- and Polyfluoroalkyl Substance Toxicity and Human Health Review: Current State of Knowledge and Strategies for Informing Future Research. Environmental Toxicology and Chemistry.
+3. National Science and Technology Council (NSTC). (2023). Per- and Polyfluoroalkyl Substances (PFAS) Report. Joint Subcommittee on Environment, Innovation, and Public Health.
+
+Your task is to extract entities exactly as they appear in the text — without normalization, inference, or modification.
+
+Read the provided title and abstract carefully.
+Extract entities for the following eight fields:
+
+- Study population: Human populations only (e.g., workers, adults, children, elderly, residents). Do not include non-human organisms (e.g., fish, animals, plants). Do not include the population name if mentioned only in the introduction/background part of the abstract and is not studied.
+
+- Study year: the year when the study on PFAS exposure on human was conducted. If there is a duration, extract all.
+
+- Biospecimen: Human biological materials only, such as tissue, blood, serum, or urine, used for laboratory tests and research to understand the biological effect of PFAS exposure. Do not extract non-human biospecimens (e.g., fish tissue, aquatic organisms, plant leaves, animal organs).
+
+- Outcome: an outcome can be one of the following: 1. a disease/disorder (e.g., irritable bowel syndrome, dermatological inflammation, breast cancer, obesity, etc), 2. an impact on molecular mechanism/activity such as decreased hormone activity (this can be an indication of endocrine disruption), or 3. a biomarker measurement such as the level of a PFAS chemical in human serum samples 
+
+- Geographical locations: Extract only locations where the study was conducted (e.g., US, Connecticut, Yangtze River, New Haven). Include natural features (mountains, rivers) and man-made entities (landfills, water treatment plants) if they are study locations. Include country if mentioned. For a single location with multiple components (e.g., "New Haven, CT, US"), keep them together as one entry. For multiple distinct locations, separate them with comma in the list (e.g., "New Haven and Chelsea" -> "New Haven", "Chelsea").
+
+- Medium: Water-related media only where PFAS chemicals are found (e.g., wastewater, tap water, drinking water, groundwater, surface water, lake, river, seawater). Do not extract non-water media such as sediments, sludge, suspended particles, air, dust, or food.
+
+- Source: The source/origin of PFAS contamination in the studied water (e.g., firefighting foam, chemical manufacturer, airport, industrial discharge, landfill).
+
+- PFAS chemical names: Extract specific PFAS chemicals that are analyzed/reported in the study. Do not include general mentions (e.g., "we studied PFAS"). Map each chemical to its abbreviation using the list below. Only output abbreviations; omit any chemical not in this list.
+
+Allowed PFAS abbreviations (with long names):
+
+11Cl-PF3OUdS:	11-Chloroeicosafluoro-3-oxaundecane-1-sulfonic acid
+9Cl-PF3ONS:	9-Chlorohexadecafluoro-3-oxanonane-1-sulfonic acid
+ADONA:	4,8-Dioxa-3H-perfluorononanoic acid
+HFPO-DA:	Hexafluoropropylene oxide dimer acid (GenX)
+NFDHA:	Nonafluoro-3,6-dioxaheptanoic acid
+PFBA:	Perfluorobutanoic acid
+PFBS:	Perfluorobutanesulfonic acid
+8:2FTS:	1H,1H, 2H, 2H-Perfluorodecane sulfonic acid
+PFDA:	Perfluorodecanoic acid
+PFDoA:	Perfluorododecanoic acid
+PFEESA:	Perfluoro(2-ethoxyethane)sulfonic acid
+PFHpS:	Perfluoroheptanesulfonic acid
+PFHpA:	Perfluoroheptanoic acid
+4:2FTS:	1H,1H, 2H, 2H-Perfluorohexane sulfonic acid
+PFHxS:	Perfluorohexanesulfonic acid
+PFHxA:	Perfluorohexanoic acid
+PFMPA:	Perfluoro-3-methoxypropanoic acid
+PFMBA:	Perfluoro-4-methoxybutanoic acid
+PFNA:	Perfluorononanoic acid
+6:2FTS:	1H,1H, 2H, 2H-Perfluorooctane sulfonic acid
+PFOS:	Perfluorooctanesulfonic acid
+PFOA:	Perfluorooctanoic acid
+PFPeA:	Perfluoropentanoic acid
+PFPeS:	Perfluoropentanesulfonic acid
+PFUnA:	Perfluoroundecanoic acid
+NEtFOSAA:	N-ethyl perfluorooctanesulfonamidoacetic acid
+NMeFOSAA:	N-methyl perfluorooctanesulfonamidoacetic acid
+PFTA:	Perfluorotetradecanoic acid
+PFTrDA:	Perfluorotridecanoic acid
+
+Extraction Rules:
+Your output must be exactly ONE valid JSON object.
+
+Formatting requirements:
+- It must contain all of the following keys: study_population, study_year, biospecimen, outcome, location, pfas, medium, source
+
+For all fields except PFAS:
+- Extract exactly as written — do not infer, generalize, expand abbreviations, or modify case/punctuation.
+
+All fields must be JSON lists of strings as the format below
+If there is more than one in your extracted field, you must list them all separated by ',' character (e.g. ["human", "mice"])
+If the extracted value is "none", output an empty list [].
+The JSON must contain no comments, no trailing text, and no extra explanation.
+The JSON object must be the ONLY content in your final answer.
+
+Example Output:
+{{
+  "study_population": ["children"],
+  "study_year": [],
+  "biospecimen": ["kidney", "blood serum"],
+  "outcome": ["functional thyroid disease", "hyperthyroidism", "hypothyroidism"],
+  "location": ["China"],
+  "pfas": ["PFBA", "PFOA"],
+  "medium": ["water"],
+  "source": []
+}}
+
+Your Task
+Please process the following abstract and provide the required output:
+Here is the text including title and abstract (PMID: {pmid}):
+{text}
+
+Answer:

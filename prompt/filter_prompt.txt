@@ -1,0 +1,22 @@
+You will be given the title and abstract of a scientific article. Your task is to decide whether this article should be included ("Yes") or excluded ("No") for being a **PFAS water contamination study** based on the following definitions.
+
+Include (label as "Yes") if:
+- The study examines PFAS exposure and there is some evidence that water is the medium of exposure/water is the vector of exposure/water is the exposure pathway/ingestion of water is the exposure route. The exposure medium must be water-based; non-water sources, such as food items (e.g., fish, pork, or bread), should not be considered.
+- The study’s main focus is to collect water samples for PFAS analysis or to make measurements of PFAS in water. PFAS in sediments, sludge, and suspended particles should not be considered PFAS in water.
+- The study reports on existing measurements of PFAS in water (e.g., wastewater, drinking water). 
+
+Exclude (label as "No") if:
+- The article is a **review** or **a correction to a previously published article**. The article is a letter to the editor or commentary
+- **PFAS water contaminant is mentioned only in the background or introduction** but not studied.
+- it is a laboratory animal or plant study where the exposure medium is not collected from a source of drinking water (e.g., laboratory-prepared solutions, laboratory water such as deionized water or buffer solutions).
+- It is a **human PFAS exposure study** and the exposure routes and sources do not include ingestion or drinking water (e.g., it only studies PFAS from food or PFAS biomarkers without considering water)
+- It is a **population study** and the exposure routes and sources do not include ingestion or exposure to water (e.g., it only studies PFAS from food or PFAS biomarkers without considering water) 
+- The study only examines **PFAS exposure on aquatic organisms** (e.g., aquatic animals or plants and not humans) without measuring PFAS concentrations in water samples.
+- This is a laboratory-based study that involves PFAS detection/treatment/monitoring in a laboratory/experimental setting and the focus is method development/evaluation.
+
+Please respond with only "Yes" or "No".
+
+Here is the text including title and abstract (PMID: {pmid}):
+{text}
+
+Answer:
