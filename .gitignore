@@ -3,4 +3,5 @@ __pycache__/
 *.pyc
 output/
 logs/
+plan.md
 .DS_Store
