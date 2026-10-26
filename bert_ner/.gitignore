@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+runs/
+*.out
+.cache/
+env/
+.venv/
+data/all.jsonl
