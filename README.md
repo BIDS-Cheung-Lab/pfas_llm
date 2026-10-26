@@ -29,6 +29,7 @@ pfas_llm/
 │   ├── run_extract.py                LLM entity extraction (uses Azure OpenAI)
 │   ├── eval_filter.py                evaluate LLM filtering against human annotation
 │   └── eval_extract.py               evaluate LLM extraction against human annotation
+├── bert_ner/                         BERT NER baselines for entity extraction (see bert_ner/README.md)
 └── logging_utils.py
 ```
 
@@ -68,3 +69,13 @@ The `eval_*.py` scripts read pre-computed predictions only and never call
 the LLM. They reproduce the exact metrics reported in the paper.
 
 Per-run logs are saved in `llm/logs/`.
+
+## BERT NER baselines
+
+`bert_ner/` fine-tunes BERT-family encoders (bert-base-cased and two BiomedBERT
+variants) as token-classification taggers for the same 8 entities, comparing full
+fine-tuning, LoRA and Pfeiffer / Houlsby adapters. It trains on 50 of the 100
+human-annotated abstracts in `data/human_extract_gold.xlsx` and tests on the other
+50, scored with the same exact / partial F1 as `llm/eval_extract.py`. A GPU is
+recommended, and it has its own requirements (`bert_ner/requirements.txt`); see
+[bert_ner/README.md](bert_ner/README.md) for setup, commands and results.
